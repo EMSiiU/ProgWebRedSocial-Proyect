@@ -1,0 +1,25 @@
+/* Estilos mínimos personalizados para la app */
+body {
+  background-color: #f8f9fa;
+}
+
+.sidebar {
+  height: 100vh;
+  border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.card img.rounded-circle {
+  object-fit: cover;
+}
+
+/* Centrado para el formulario de login */
+#auth-container {
+  min-height: calc(100vh - 56px); /* considerar altura del navbar */
+}
+
+/* Pequeños ajustes responsivos */
+@media (max-width: 767px) {
+  .sidebar { display: none; }
+}
+
+/* Fin de estilos */
