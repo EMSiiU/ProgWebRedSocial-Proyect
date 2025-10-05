@@ -7,7 +7,7 @@ export function initSidebar() {
         const mainContainer = document.querySelector('.container');
         if (!mainContainer) {
             const fallback = document.createElement('nav');
-            fallback.className = 'bg-light sidebar p-3';
+            fallback.className = 'sidebar p-3';
             fallback.innerHTML = `
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link" href="feed.html">Inicio</a></li>
@@ -21,7 +21,7 @@ export function initSidebar() {
         }
 
         const sidebar = document.createElement('nav');
-        sidebar.className = 'col-md-3 col-lg-2 d-none d-md-block bg-light sidebar';
+        sidebar.className = 'col-md-3 col-lg-2 d-none d-md-block sidebar';
         sidebar.innerHTML = `
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
@@ -38,7 +38,7 @@ export function initSidebar() {
         const row = document.createElement('div');
         row.className = 'row';
         const mainCol = document.createElement('main');
-        mainCol.className = 'col-md-9 ms-sm-auto col-lg-10 px-md-4';
+        mainCol.className = 'col-md-9 ms-sm-auto col-lg-10 px-md-4 fade-in';
 
         const originalParent = mainContainer.parentNode;
         if (originalParent) {
