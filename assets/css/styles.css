@@ -1,25 +1,538 @@
-/* Estilos mínimos personalizados para la app */
-body {
-  background-color: #f8f9fa;
+/* Estilos mejorados para ConnectCat con modo oscuro */
+:root {
+  /* Colores modo claro */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border-color: rgba(0, 0, 0, 0.125);
+  --accent-color: #0d6efd;
+  --accent-hover: #0b5ed7;
+  --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --sidebar-bg: #f8f9fa;
+  --sidebar-text: #212529;
+  --sidebar-border: rgba(0, 0, 0, 0.05);
+  --danger-color: #dc3545;
+  --success-color: #198754;
+  --warning-color: #ffc107;
 }
 
+[data-theme="dark"] {
+  /* Colores modo oscuro */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --accent-color: #3d8bfd;
+  --accent-hover: #5da3fd;
+  --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
+  --sidebar-bg: #1a1a1a;
+  --sidebar-text: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --danger-color: #e74c3c;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+}
+
+/* Transición suave para cambios de tema */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/*Estilos para el toggle de modo oscuro - Precargar ícono */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  font-family: 'Font Awesome 6 Free', sans-serif;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/*Estilos específicos para el contenedor de autenticación */
+#auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#auth-container .row {
+  width: 100%;
+  margin: 0;
+}
+
+#auth-container .card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+#auth-container .card-body {
+  padding: 2rem;
+  color: var(--text-primary);
+}
+
+#auth-container .card-title {
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+/*Placeholders de inputs */
+#auth-container .form-control {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.375rem;
+}
+
+#auth-container .form-control::placeholder {
+  color: var(--placeholder-color) !important;
+  opacity: 1;
+}
+
+#auth-container .form-control:-ms-input-placeholder {
+  color: var(--placeholder-color) !important;
+}
+
+#auth-container .form-control::-ms-input-placeholder {
+  color: var(--placeholder-color) !important;
+}
+
+#auth-container .form-control:focus {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+#auth-container .form-control:focus::placeholder {
+  color: var(--text-secondary);
+}
+
+#auth-container .btn {
+  padding: 0.75rem;
+  font-weight: 500;
+}
+
+#auth-container .text-center {
+  margin-top: 1rem;
+}
+
+#auth-container .text-center a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+#auth-container .text-center a:hover {
+  text-decoration: underline;
+}
+
+/*Placeholders para todos los formularios */
+.form-control::placeholder {
+  color: var(--placeholder-color) !important;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+  color: var(--placeholder-color) !important;
+}
+
+.form-control::-ms-input-placeholder {
+  color: var(--placeholder-color) !important;
+}
+
+#auth-container .btn {
+  padding: 0.75rem;
+  font-weight: 500;
+}
+
+#auth-container .text-center {
+  margin-top: 1rem;
+}
+
+#auth-container .text-center a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+#auth-container .text-center a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para la barra lateral */
 .sidebar {
   height: 100vh;
-  border-right: 1px solid rgba(0,0,0,0.05);
+  border-right: 1px solid var(--sidebar-border);
+  background-color: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+}
+
+.sidebar .nav-link {
+  color: var(--sidebar-text) !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+  transform: translateX(5px);
+}
+
+.sidebar .nav-link.active {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+.sidebar .nav-link.text-danger {
+  color: var(--danger-color) !important;
+}
+
+.sidebar .nav-link.text-danger:hover {
+  background-color: var(--danger-color) !important;
+  color: white !important;
+}
+
+.bg-light.sidebar {
+  background-color: var(--sidebar-bg) !important;
+}
+
+nav.sidebar {
+  background-color: var(--sidebar-bg) !important;
+}
+
+.container .card,
+.py-4 .card,
+.row .card,
+.col-lg-8 .card,
+.col-lg-4 .card,
+body .card {
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: transform 0.2s ease !important;
+  color: var(--text-primary) !important;
+}
+
+.container .card:hover,
+.py-4 .card:hover,
+.row .card:hover,
+.col-lg-8 .card:hover,
+.col-lg-4 .card:hover,
+body .card:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* Todos los textos dentro de cards */
+.container .card-body,
+.py-4 .card-body,
+.row .card-body,
+.col-lg-8 .card-body,
+.col-lg-4 .card-body,
+body .card-body {
+  color: var(--text-primary) !important;
+}
+
+.container .card-body *,
+.py-4 .card-body *,
+.row .card-body *,
+.col-lg-8 .card-body *,
+.col-lg-4 .card-body *,
+body .card-body * {
+  color: var(--text-primary) !important;
+}
+
+/* Títulos y textos de cards */
+.container .card-title,
+.py-4 .card-title,
+.row .card-title,
+.col-lg-8 .card-title,
+.col-lg-4 .card-title,
+body .card-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.container .card-text,
+.py-4 .card-text,
+.row .card-text,
+.col-lg-8 .card-text,
+.col-lg-4 .card-text,
+body .card-text {
+  color: var(--text-primary) !important;
+  line-height: 1.5 !important;
+}
+
+/* Para elementos específicos dentro de cards */
+.container .card h5,
+.container .card h6,
+.container .card p,
+.container .card span,
+.container .card div,
+.py-4 .card h5,
+.py-4 .card h6,
+.py-4 .card p,
+.py-4 .card span,
+.py-4 .card div,
+.row .card h5,
+.row .card h6,
+.row .card p,
+.row .card span,
+.row .card div,
+.col-lg-8 .card h5,
+.col-lg-8 .card h6,
+.col-lg-8 .card p,
+.col-lg-8 .card span,
+.col-lg-8 .card div,
+.col-lg-4 .card h5,
+.col-lg-4 .card h6,
+.col-lg-4 .card p,
+.col-lg-4 .card span,
+.col-lg-4 .card div,
+body .card h5,
+body .card h6,
+body .card p,
+body .card span,
+body .card div {
+  color: var(--text-primary) !important;
 }
 
 .card img.rounded-circle {
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card img.rounded-circle:hover {
+  transform: scale(1.05);
+}
+
+/* Textos muted corregidos */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+.small.text-muted {
+  color: var(--text-secondary) !important;
+  font-size: 0.875em;
+}
+
+/* Estilos para botones */
+.btn {
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-outline-primary {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
 }
 
 /* Centrado para el formulario de login */
 #auth-container {
-  min-height: calc(100vh - 56px); /* considerar altura del navbar */
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-primary);
+}
+
+#app-container {
+  background-color: var(--bg-primary);
+}
+
+/* Animaciones para carga de contenido */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Animación para elementos de lista */
+.list-group-item {
+  transition: all 0.2s ease;
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.list-group-item:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+/* Estilos para formularios */
+.form-control {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Estilos para modales */
+.modal-content {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color);
+}
+
+.modal-title {
+  color: var(--text-primary);
+}
+
+/* Estilos para textos específicos de Bootstrap que no usan variables */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-primary);
+}
+
+.small {
+  color: var(--text-secondary);
 }
 
 /* Pequeños ajustes responsivos */
 @media (max-width: 767px) {
   .sidebar { display: none; }
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
 }
 
-/* Fin de estilos */
+/* Estilos para alertas */
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+}
+
+.alert-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--warning-color);
+}
+
+.alert-success {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: var(--success-color);
+}
+
+/* Asegurar que todos los elementos de fondo usen las variables */
+.container, .container-fluid {
+  background-color: var(--bg-primary);
+}
+
+.bg-light {
+  background-color: var(--sidebar-bg) !important;
+}
+
+/* Corregir colores específicos que podrían estar fijos */
+.navbar {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dropdown-item {
+  color: var(--text-primary);
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* CORRECCIÓN: Contenedores principales */
+.container, .container-fluid {
+  background-color: var(--bg-primary);
+}
+
+/* CORRECCIÓN: Override de Bootstrap bg-light */
+.bg-light {
+  background-color: var(--sidebar-bg) !important;
+}
+
+/* Asegurar que todos los textos sean visibles */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  color: var(--text-primary);
+}
