@@ -30,9 +30,9 @@
   --sidebar-bg: #1a1a1a;
   --sidebar-text: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-  --danger-color: #e74c3c;
-  --success-color: #27ae60;
-  --warning-color: #f39c12;
+  --danger-color: #e0220d;
+  --success-color: #02ae4a;
+  --warning-color: #ff9d00;
 }
 
 /* Transición suave para cambios de tema */
@@ -480,17 +480,17 @@ p {
 }
 
 .alert-danger {
-  background-color: rgba(220, 53, 69, 0.1);
+  background-color: rgb(220, 53, 70);
   color: var(--danger-color);
 }
 
 .alert-warning {
-  background-color: rgba(255, 193, 7, 0.1);
+  background-color: rgb(255, 193, 7);
   color: var(--warning-color);
 }
 
 .alert-success {
-  background-color: rgba(25, 135, 84, 0.1);
+  background-color: rgb(25, 135, 84);
   color: var(--success-color);
 }
 
@@ -502,6 +502,7 @@ p {
 .bg-light {
   background-color: var(--sidebar-bg) !important;
 }
+
 
 /* Corregir colores específicos que podrían estar fijos */
 .navbar {
@@ -536,3 +537,36 @@ p {
 h1, h2, h3, h4, h5, h6, p, span, div {
   color: var(--text-primary);
 }
+
+/* --- Overrides para alertas en modo oscuro --- */
+/* Aplica tanto si usas data-theme="dark" como data-bs-theme="dark" */
+[data-theme="dark"] .alert, [data-bs-theme="dark"] .alert {
+  background-color: rgba(255,255,255,0.03); /* ligero fondo neutro */
+  color: var(--text-primary) !important; /* texto visible (blanco) */
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+[data-theme="dark"] .alert-danger, [data-bs-theme="dark"] .alert-danger {
+  background-color: rgba(220,53,70,0.42) !important; /* rojo suave */
+  color: var(--text-primary) !important;
+  border-color: rgba(220,53,70,0.22) !important;
+}
+
+[data-theme="dark"] .alert-warning, [data-bs-theme="dark"] .alert-warning {
+  background-color: rgba(255,193,7,0.10) !important; /* amarillo suave */
+  color: var(--text-primary) !important;
+  border-color: rgba(255,193,7,0.18) !important;
+}
+
+[data-theme="dark"] .alert-success, [data-bs-theme="dark"] .alert-success {
+  background-color: rgba(25,135,84,0.10) !important; /* verde suave */
+  color: var(--text-primary) !important;
+  border-color: rgba(25,135,84,0.18) !important;
+}
+
+/* Opcional: aumentar contraste del texto dentro de alertas pequeñas */
+[data-theme="dark"] .alert.alert-sm, [data-bs-theme="dark"] .alert.alert-sm {
+  font-weight: 500;
+}
+
+/* Fin overrides alertas */

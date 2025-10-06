@@ -1,66 +1,105 @@
-// Maneja el login y registro
+// Maneja el login y registro utilizando jQuery para validación simple
 
 export function initAuth(navigateTo) {
-    const loginForm = document.getElementById("login-form");
-    const registerForm = document.getElementById("register-form");
-    const authContainer = document.getElementById("auth-container");
-    const appContainer = document.getElementById("app-container");
-    const loginAlertBox = document.getElementById('loginAlert');
-    const registerAlertBox = document.getElementById('registerAlert');
+    // Usamos selectors de jQuery cuando sea posible
+    const $loginForm = $("#login-form");
+    const $registerForm = $("#register-form");
+    const $authContainer = $("#auth-container");
+    const $appContainer = $("#app-container");
+    const $loginAlertBox = $("#loginAlert");
+    const $registerAlertBox = $("#registerAlert");
 
-    function showAlert(container, message, type = 'danger') {
-        if (!container) {
-            // fallback to window alert
+    function showAlert($container, message, type = 'danger') {
+        if (!$container || $container.length === 0) {
             window.alert(message);
             return;
         }
-        container.innerHTML = `<div class="alert alert-${type} alert-sm" role="alert">${message}</div>`;
+        $container.html(`<div class="alert alert-${type} alert-sm" role="alert">${message}</div>`);
     }
 
-    if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const username = loginForm.querySelector("[name='username']").value.trim();
-            const password = loginForm.querySelector("[name='password']").value.trim();
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
-            if (!username || !password) {
-                showAlert(loginAlertBox, "Por favor llena todos los campos", 'warning');
+    // Login
+    if ($loginForm.length) {
+        $loginForm.on('submit', function (e) {
+            e.preventDefault();
+            const username = $.trim($loginForm.find("[name='username']").val() || '');
+            const password = $.trim($loginForm.find("[name='password']").val() || '');
+
+            $loginAlertBox.empty();
+            $loginForm.find('.is-invalid').removeClass('is-invalid');
+
+            if (!username) {
+                $loginForm.find("[name='username']").addClass('is-invalid');
+                showAlert($loginAlertBox, 'El usuario es obligatorio', 'warning');
+                return;
+            }
+            if (!password) {
+                $loginForm.find("[name='password']").addClass('is-invalid');
+                showAlert($loginAlertBox, 'La contraseña es obligatoria', 'warning');
                 return;
             }
 
-            // De momento damos acceso directo
-            if (authContainer) authContainer.style.display = "none";
-            if (appContainer) appContainer.style.display = "flex";
-            if (typeof navigateTo === 'function') navigateTo("#feed");
+            if (password.length < 8) {
+                $loginForm.find("[name='password']").addClass('is-invalid');
+                showAlert($loginAlertBox, 'La contraseña debe tener al menos 8 caracteres', 'warning');
+                return;
+            }
+
+            // Simulamos login: guardamos un flag en localStorage
+            localStorage.setItem('isLoggedIn', '1');
+
+            $authContainer.hide();
+            $appContainer.css('display', 'flex');
+            if (typeof navigateTo === 'function') navigateTo('#feed');
         });
     }
 
-    if (registerForm) {
-        registerForm.addEventListener("submit", (e) => {
+    // Register
+    if ($registerForm.length) {
+        $registerForm.on('submit', function (e) {
             e.preventDefault();
-            const username = registerForm.querySelector("[name='username']").value.trim();
-            const email = registerForm.querySelector("[name='email']").value.trim();
-            const password = registerForm.querySelector("[name='password']").value.trim();
-            const password2 = registerForm.querySelector("[name='password2']").value.trim();
+            const username = $.trim($registerForm.find("[name='username']").val() || '');
+            const email = $.trim($registerForm.find("[name='email']").val() || '');
+            const password = $.trim($registerForm.find("[name='password']").val() || '');
+            const password2 = $.trim($registerForm.find("[name='password2']").val() || '');
 
-            if (!username || !email || !password || !password2) {
-                showAlert(registerAlertBox, "Por favor llena todos los campos", 'warning');
+            $registerAlertBox.empty();
+            $registerForm.find('.is-invalid').removeClass('is-invalid');
+
+            if (!username) {
+                $registerForm.find("[name='username']").addClass('is-invalid');
+                showAlert($registerAlertBox, 'El usuario es obligatorio', 'warning');
+                return;
+            }
+            if (!email || !validateEmail(email)) {
+                $registerForm.find("[name='email']").addClass('is-invalid');
+                showAlert($registerAlertBox, 'Introduce un correo válido', 'warning');
+                return;
+            }
+            if (!password || password.length < 8) {
+                $registerForm.find("[name='password']").addClass('is-invalid');
+                showAlert($registerAlertBox, 'La contraseña debe tener al menos 8 caracteres', 'warning');
                 return;
             }
             if (password !== password2) {
-                showAlert(registerAlertBox, "Las contraseñas no coinciden", 'danger');
+                $registerForm.find("[name='password2']").addClass('is-invalid');
+                showAlert($registerAlertBox, 'Las contraseñas no coinciden', 'danger');
                 return;
             }
 
-            // Acceso directo
-            if (authContainer) authContainer.style.display = "none";
-            if (appContainer) appContainer.style.display = "flex";
-            if (registerAlertBox) registerAlertBox.innerHTML = '';
-            if (typeof navigateTo === 'function') navigateTo("#feed");
+            // Simulamos registro: guardamos isLoggedIn y limpiamos alertas
+            localStorage.setItem('isLoggedIn', '1');
+            $registerAlertBox.empty();
+            $authContainer.hide();
+            $appContainer.css('display', 'flex');
+            if (typeof navigateTo === 'function') navigateTo('#feed');
         });
     }
 
-    // Si existe el modal de registro, enfocar el primer input cuando se muestre
+    // Manejo del modal de registro para enfocar el primer input
     try {
         const registerModalEl = document.getElementById('registerModal');
         if (registerModalEl) {
@@ -68,6 +107,14 @@ export function initAuth(navigateTo) {
                 const first = registerModalEl.querySelector('input[name="name"]');
                 if (first) first.focus();
             });
+        }
+    } catch (e) {}
+
+    // Si el usuario ya estaba logueado, mostrar la app
+    try {
+        if (localStorage.getItem('isLoggedIn')) {
+            $authContainer.hide();
+            $appContainer.css('display', 'flex');
         }
     } catch (e) {}
 }

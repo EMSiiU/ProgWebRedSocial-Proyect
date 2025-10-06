@@ -9,7 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-
+        <style>
+            body {
+                background-color: var(--bg-primary);
+            }
+        </style>
     <!-- Auth container -->
     <div class="container py-5" id="auth-container">
         <div class="row justify-content-center">
@@ -94,9 +98,11 @@
 
 
 
-        <!-- Bootstrap JS (cargamos antes de app.js para que los componentes estén disponibles) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="module" src="assets/js/app.js"></script>
+    <!-- Bootstrap JS (cargamos antes de app.js para que los componentes estén disponibles) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (usado para validación simple en auth) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
 
 </body>
 </html>
